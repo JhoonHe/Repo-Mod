@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index</title>
+    <link rel="stylesheet" href="/public/css/style-registro.css">
+</head>
+<body>
+    <main>
+        <header class="header">
+            <div class="logo"><a href="/">LOGO</a></div>
+            <input type="search">
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="#">Register</a></li>
+                    <li><a href="#">Login</a></li>
+                </ul>
+            </nav>
+        </header>
+        <div class="formulario">
+            <h2>REGISTRO</h2>
+            <form class="form" action="/views/registro.ejs" method="post">
+                <input class="datos" type="text" name="nombres" placeholder="Nombres">
+                <input class="datos" type="text" name="apellidos" placeholder="Apellidos">
+                <input class="datos" type="email" name="correo" placeholder="Correo">
+                <input class="datos" type="password" name="contrasena" placeholder="Contraseña">
+                <input class="datos" type="number" name="edad" placeholder="Edad">
+                <input class="datos" type="tel" name="telefono" placeholder="Teléfono">
+                <input type="submit" name="enviar" id="enviar">
+                <input type="reset" name="limpiar" id="limpiar">
+            </form>
+            <div class="clear"></div>
+        </div>
+    </main>
+</body>
+</html>

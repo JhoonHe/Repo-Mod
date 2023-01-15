@@ -1,6 +1,8 @@
 const express = require('express'); 
 const bodyParser = require('body-parser');
 let mysql = require('mysql');
+const bcrypt = require('bcrypt');
+const { render } = require('ejs');
 
 const app = express();
 
@@ -40,4 +42,8 @@ app.get('/test', (req, res) => {
 
         res.send(`Datos del usuario: ${correo}, ${nombre}, ${apellido}, ${edad}, ${telefono}`)
     })
+})
+
+app.get('/registro', (req, res) => {
+    res.render('registro')
 })
