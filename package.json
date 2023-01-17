@@ -1,0 +1,26 @@
+{
+  "name": "mod-1",
+  "version": "1.0.0",
+  "description": "Prueba mod",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JhoonHe/Repo-Mod.git"
+  },
+  "keywords": [
+    "https://github.com/JhoonHe/Repo-Mod.git"
+  ],
+  "author": "JhoonHe",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JhoonHe/Repo-Mod/issues"
+  },
+  "homepage": "https://github.com/JhoonHe/Repo-Mod#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mysql": "^2.18.1"
+  }
+}
