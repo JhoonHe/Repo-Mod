@@ -1,26 +1,14 @@
 const express = require('express'); 
-const bodyParser = require('body-parser');
 let mysql = require('mysql');
+const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
-const { render } = require('ejs');
-
 const app = express();
-
-const port = 10101;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
-app.use('/public/', express.static('public'));
+app.use('/public/', express.static('./public'));
 
-
-app.get('/', (req, res) => {
-    // res.json('Conexión establecida correctamente')
-    res.render('index')
-})
-
-app.listen(port, () =>{
-    console.log(`Conexión establecida en el puerto: ${port}`);
-})
+const port = 10101;
 
 const pool = mysql.createPool({
     connectionLimit : 100,
@@ -28,22 +16,55 @@ const pool = mysql.createPool({
     user            : 'root',
     password        : '1234',
     database        : 'modulos',
-    debugger        : false
-})
+    debug        : false
+});
 
-app.get('/test', (req, res) => {
-    pool.query('select * from usuario', function (error, results, fields){
-        if (error) throw error
-        let correo          = results[0].correo;
-        let nombre          = results[0].nombre;
-        let apellido        = results[0].apellido;
-        let edad            = results[0].edad;
-        let telefono        = results[0].telefono;
+app.get('/', (req, res) => {
+    // res.json('Conexión establecida correctamente')
+    res.render('index')
+});
 
-        res.send(`Datos del usuario: ${correo}, ${nombre}, ${apellido}, ${edad}, ${telefono}`)
-    })
-})
-
-app.get('/registro', (req, res) => {
+app.get('/registro-interfaz', (req, res) => {
     res.render('registro')
-})
+});
+
+app.post('/registro', (req, res) => {
+    let correo = req.body.correo;
+    let nombres = req.body.nombres;
+    let apellidos = req.body.apellidos;
+    let contrasenia = req.body.contrasenia;
+    let edad = req.body.edad;
+    let telefono = req.body.telefono;
+
+    const saltRounds = 10;
+    const salt = bcrypt.genSaltSync(saltRounds);
+
+    const hash = bcrypt.hashSync(contrasenia, salt);
+    pool.query("insert into usuario values (?,?,?,?,?,?)", [correo, nombres, apellidos, hash, edad, telefono],
+
+    (error) => {
+        if(error) throw error;
+        // res.send('Registro éxitoso');
+        res.render('registro');
+    });
+});
+
+app.listen(port, () =>{
+    console.log(`Conexión establecida en el puerto: ${port}`);
+});
+
+// app.get('/test', (req, res) => {
+//     pool.query('select * from usuario', function (error, results, fields){
+//         if (error) throw error
+//         let nombres         = results[0].nombres;
+//         let apellidos       = results[0].apellidos;
+//         let correo          = results[0].correo;
+//         let contrasenia     = results[0].contrasenia;
+//         let edad            = results[0].edad;
+//         let telefono        = results[0].telefono;
+
+//         res.send(`Datos del usuario: ${nombres}, ${apellidos}, ${correo}, ${contrasenia}, ${edad}, ${telefono}`)
+//     })
+// })
+
+
