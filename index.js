@@ -2,6 +2,7 @@ const express = require('express');
 let mysql = require('mysql');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
+
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -45,9 +46,37 @@ app.post('/registro', (req, res) => {
     (error) => {
         if(error) throw error;
         // res.send('Registro éxitoso');
-        res.render('registro');
+        res.render('login');
     });
 });
+
+app.get('/login-interfaz', (req, res) => {
+    res.render('login')
+});
+
+app.post('/login', (req, res) => {
+
+    let correo          = req.body.correo;
+    let contrasenia     = req.body.contrasena;
+
+    pool.query("select contrasenia from usuario where correo= ?", [correo], (error, data) => {
+
+        if (error) throw error;
+
+        if (data.length > 0){
+            let contraseniaEncriptada = data[0].contrasenia;
+
+            if(bcrypt.compareSync(contrasenia, contraseniaEncriptada)){
+                return res.send('Login exitoso')
+                // res.render('index')
+            }
+            return res.send('Usuario o contraseña incorrecto');
+            // return res.render('registro')
+        }
+        return res.send('Usuario o contraseña incorrecto');
+        // return res.render('registro')
+    })
+})
 
 app.listen(port, () =>{
     console.log(`Conexión establecida en el puerto: ${port}`);
