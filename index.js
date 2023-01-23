@@ -2,8 +2,20 @@ const express = require('express');
 let mysql = require('mysql');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
-
+const cookieParser = require('cookie-parser');
+const sessions = require('express-session');
 const app = express();
+
+app.use(cookieParser());
+
+const timeExp = 1000 * 60 * 60 * 24;
+
+app.use(sessions({
+    secret: "rfghf66a76ythggi87au7td",
+    saveUninitialized: true,
+    cookie: { maxAge: timeExp },
+    resave: false
+}));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
@@ -67,8 +79,12 @@ app.post('/login', (req, res) => {
             let contraseniaEncriptada = data[0].contrasenia;
 
             if(bcrypt.compareSync(contrasenia, contraseniaEncriptada)){
-                return res.send('Login exitoso')
                 // res.render('index')
+                let session = req.session;
+
+                session.correo = correo;
+
+                return res.send('Login exitoso');
             }
             return res.send('Usuario o contraseña incorrecto');
             // return res.render('registro')
@@ -76,7 +92,18 @@ app.post('/login', (req, res) => {
         return res.send('Usuario o contraseña incorrecto');
         // return res.render('registro')
     })
-})
+});
+
+app.get('/test-cookies', (req, res) => {
+
+    let session = req.session;
+
+    if (session.correo){
+        res.send(`Usted tiene una sesion iniciada con el siguiente correo: ${session.correo}`);
+    }else{
+        res.send('Por favor inicie sesión')
+    }
+});
 
 app.listen(port, () =>{
     console.log(`Conexión establecida en el puerto: ${port}`);
