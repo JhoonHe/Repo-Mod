@@ -34,11 +34,16 @@ const pool = mysql.createPool({
 
 app.get('/', (req, res) => {
     // res.json('Conexión establecida correctamente')
-    res.render('index')
+    let session = req.session;
+
+    if(session.correo){
+        return res.render('index', {nombres: session.nombres});
+    } 
+    return res.render('index', {nombres: undefined});
 });
 
 app.get('/registro-interfaz', (req, res) => {
-    res.render('registro')
+    return res.render('registro')
 });
 
 app.post('/registro', (req, res) => {
@@ -58,12 +63,12 @@ app.post('/registro', (req, res) => {
     (error) => {
         if(error) throw error;
         // res.send('Registro éxitoso');
-        res.render('login');
+        return res.redirect('/login-interfaz');
     });
 });
 
 app.get('/login-interfaz', (req, res) => {
-    res.render('login')
+    return res.render('login')
 });
 
 app.post('/login', (req, res) => {
@@ -71,7 +76,7 @@ app.post('/login', (req, res) => {
     let correo          = req.body.correo;
     let contrasenia     = req.body.contrasena;
 
-    pool.query("select contrasenia from usuario where correo= ?", [correo], (error, data) => {
+    pool.query("select contrasenia, nombres, apellidos from usuario where correo= ?", [correo], (error, data) => {
 
         if (error) throw error;
 
@@ -84,7 +89,9 @@ app.post('/login', (req, res) => {
 
                 session.correo = correo;
 
-                return res.send('Login exitoso');
+                session.nombres = `${data[0].nombres}`
+
+                return res.redirect('/');
             }
             return res.send('Usuario o contraseña incorrecto');
             // return res.render('registro')
@@ -93,6 +100,39 @@ app.post('/login', (req, res) => {
         // return res.render('registro')
     })
 });
+
+app.get('/logout', (req, res) => {
+    
+    let session = req.session;
+
+    if(session.correo){
+        req.session.destroy();
+        
+        return res.redirect('/');
+    } else {
+        return res.send("Por favor inicie sesión")
+    }
+});
+
+app.listen(port, () =>{
+    console.log(`Conexión establecida en el puerto: ${port}`);
+});
+
+// Test
+
+app.get('/test', (req, res) => {
+    pool.query('select * from usuario', function (error, results, fields){
+        if (error) throw error
+        let nombres         = results[0].nombres;
+        let apellidos       = results[0].apellidos;
+        let correo          = results[0].correo;
+        let contrasenia     = results[0].contrasenia;
+        let edad            = results[0].edad;
+        let telefono        = results[0].telefono;
+
+        res.send(`Datos del usuario: ${nombres}, ${apellidos}, ${correo}, ${contrasenia}, ${edad}, ${telefono}`)
+    })
+})
 
 app.get('/test-cookies', (req, res) => {
 
@@ -104,23 +144,3 @@ app.get('/test-cookies', (req, res) => {
         res.send('Por favor inicie sesión')
     }
 });
-
-app.listen(port, () =>{
-    console.log(`Conexión establecida en el puerto: ${port}`);
-});
-
-// app.get('/test', (req, res) => {
-//     pool.query('select * from usuario', function (error, results, fields){
-//         if (error) throw error
-//         let nombres         = results[0].nombres;
-//         let apellidos       = results[0].apellidos;
-//         let correo          = results[0].correo;
-//         let contrasenia     = results[0].contrasenia;
-//         let edad            = results[0].edad;
-//         let telefono        = results[0].telefono;
-
-//         res.send(`Datos del usuario: ${nombres}, ${apellidos}, ${correo}, ${contrasenia}, ${edad}, ${telefono}`)
-//     })
-// })
-
-

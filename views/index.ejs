@@ -15,8 +15,26 @@
             <nav>
                 <ul class="nav-links">
                     <li><a href="/">Home</a></li>
-                    <li><a href="/registro-interfaz">Register</a></li>
-                    <li><a href="/login-interfaz">Login</a></li>
+                    <li>
+                        <%if (nombres) { %>
+                            <a href="#"><%= nombres %></a>
+                        <% } %>
+                    </li>
+                    <li>
+                        <%if (!nombres) { %> 
+                            <a href="/registro-interfaz">Register</a>
+                        <% } %>
+                    </li>
+                    <li>
+                        <%if (!nombres) { %> 
+                            <a href="/login-interfaz">Login</a>
+                            <% } %>
+                    </li>
+                    <li>
+                        <% if(nombres) { %>
+                            <a href="/logout">Exit</a> 
+                        <% } %> 
+                    </li>
                 </ul>
             </nav>
         </header>
