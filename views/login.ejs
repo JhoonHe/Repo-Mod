@@ -5,12 +5,29 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="stylesheet" href="/public/css/style-login.css">
 </head>
 <body>
-    <form action="/login" method="post">
-        <input type="text" name="correo">
-        <input type="password" name="contrasena">
-        <input type="submit">
-    </form>
+    <main>
+        <header class="header">
+            <div class="logo"><a href="/">LOGO</a></div>
+            <input type="search">
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/registro-interfaz">Register</a></li>
+                    <li><a href="/login-interfaz">Login</a></li>
+                </ul>
+            </nav>
+        </header> 
+        <div class="formulario">
+            <h2>LOGIN</h2>
+            <form class="form" action="/login" method="post">
+                <input class="datos" type="text" name="correo" placeholder="Correo">
+                <input class="datos" type="password" name="contrasena" placeholder="Contraseña">
+                <input type="submit">
+            </form>
+        </div>    
+    </main>
 </body>
 </html>
