@@ -1,0 +1,113 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-size: 20px;
+}
+
+main{
+    height: 1000px;
+    width: 1350px;
+    margin: 0 auto;
+    background-color: #CBDFC9;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 200 200'%3E%3Cdefs%3E%3ClinearGradient id='a' gradientUnits='userSpaceOnUse' x1='100' y1='33' x2='100' y2='-3'%3E%3Cstop offset='0' stop-color='%23000' stop-opacity='0'/%3E%3Cstop offset='1' stop-color='%23000' stop-opacity='1'/%3E%3C/linearGradient%3E%3ClinearGradient id='b' gradientUnits='userSpaceOnUse' x1='100' y1='135' x2='100' y2='97'%3E%3Cstop offset='0' stop-color='%23000' stop-opacity='0'/%3E%3Cstop offset='1' stop-color='%23000' stop-opacity='1'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg fill='%23a7bba5' fill-opacity='0.6'%3E%3Crect x='100' width='100' height='100'/%3E%3Crect y='100' width='100' height='100'/%3E%3C/g%3E%3Cg fill-opacity='0.5'%3E%3Cpolygon fill='url(%23a)' points='100 30 0 0 200 0'/%3E%3Cpolygon fill='url(%23b)' points='100 100 0 130 0 100 200 100 200 130'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+body{
+    background-color: white;
+}
+
+.header{
+    background-color: black;
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    height: 85px;
+    padding: 5px 3%;
+}
+
+.header .logo{
+    background-color: mediumorchid;
+    height: auto;
+    width: auto;
+    text-align: center;
+    padding: 2px;
+}
+
+.header .logo a{
+    text-decoration: none;
+    color: white;
+}
+
+.header .nav-links{
+    list-style: none;
+}
+
+.header input{
+    width: 50%;
+}
+
+.header .nav-links li{
+    display: inline-block;
+    padding: 0 20px;
+}
+
+.header .nav-links li:hover{
+    transform: scale(1.1);
+}
+
+.header .nav-links a{
+    font-size: 700;
+    color: white;
+    text-decoration: none;
+}
+
+.imgs{
+    display: flex;
+    justify-content: center;
+    padding: 2% 20%;
+}
+
+.imgs img{
+    height: 500px;
+    width: 1000px;
+    border: 10px black solid;
+    border-radius: 5px;
+}
+
+.clear{
+    clear: both;
+}
+
+/* Login */
+
+
+.formulario{
+    margin: 100px auto;
+    width: 700px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 2% 5%;
+    display: block;
+    text-align: center;
+    border: 2px grey solid;
+}
+
+.formulario h2{
+    color: black;
+    text-decoration: underline;
+}
+
+.formulario .datos{
+    width: 100%;
+    margin: 2% 0;
+    border-radius: 10px;
+    border: 1px grey solid;
+    padding: 1% 1%;
+}
+
+.formulario input[type="submit"],input[type="reset"]{
+    color: black;
+    margin: auto;
+    margin: 5% 4%;
+}

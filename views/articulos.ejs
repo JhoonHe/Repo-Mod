@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="/public/css/style-articulos.css">
+</head>
+<body>
+    <main>
+        <header class="header">
+            <div class="logo"><a href="/">LOGO</a></div>
+            <input type="search">
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="/">Home</a></li>
+                    <li>
+                        <%if (nombres) { %>
+                            <a href="#"><%= nombres %></a>
+                        <% } %>
+                    </li>
+                    <li>
+                        <%if (!nombres) { %> 
+                            <a href="/registro-interfaz">Register</a>
+                        <% } %>
+                    </li>
+                    <li>
+                        <%if (!nombres) { %> 
+                            <a href="/login-interfaz">Login</a>
+                            <% } %>
+                    </li>
+                    <li>
+                        <% if(nombres) { %>
+                            <a href="/logout">Exit</a> 
+                        <% } %> 
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <% for (let i = 0 ; i < articulos.length ; i++) { %>
+            <div class="articulos">
+                <div class="img-articulo">
+                    <img src="<%= articulos[i].url %>" alt="imagen-articulo">
+                </div>
+                <h2><%= articulos[i].nombre %></h2>
+                <p>Valor: <%= articulos[i].valor %></p>
+                <a href="#"><%= articulos[i].proveedor %></a>
+                <div class="detalle">
+                    <a href="/detalle-producto/<%= articulos[i].codigo %>">Ver detalle</a>
+                </div>
+            </div>
+        <% } %>
+    </main>
+</body>
+</html>

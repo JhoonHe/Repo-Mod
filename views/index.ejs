@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="/public/css/style-index.css">
+</head>
+<body>
+    <main>
+        <header class="header">
+            <div class="logo"><a href="/">LOGO</a></div>
+            <input type="search">
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="/">Home</a></li>
+                    <li>
+                        <%if (nombres) { %>
+                            <a href="#"><%= nombres %></a>
+                        <% } %>
+                    </li>
+                    <li>
+                        <%if (!nombres) { %> 
+                            <a href="/registro-interfaz">Register</a>
+                        <% } %>
+                    </li>
+                    <li>
+                        <%if (!nombres) { %> 
+                            <a href="/login-interfaz">Login</a>
+                            <% } %>
+                    </li>
+                    <li>
+                        <% if(nombres) { %>
+                            <a href="/logout">Exit</a> 
+                        <% } %> 
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <div class="imgs">
+            <img src="/public/img/img2.jpg" alt="leon">
+        </div>
+    </main>
+</body>
+</html>
